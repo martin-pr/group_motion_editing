@@ -5,6 +5,6 @@ if [ ! -e bin ]; then
 fi
 
 cd bin
-cmake ..
-make -j 12
+cmake .. || exit 1
+make -j 12 || exit 1
 cd ..
