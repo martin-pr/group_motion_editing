@@ -11,5 +11,16 @@
 			{ "type": "curve", "points": [[-0.2,0], [0,0.4], [0.2,1]], "sampling": 0.02 },
 			{ "type": "curve", "points": [[0.2,0], [0,0.6], [-0.2,1]], "sampling": 0.02 }
 		]
+	},
+
+	"scenarios": {
+		"empty": {
+			"type": "empty",
+			"visualisations": {
+				"simple_agents": [
+					{"type": "agent_trajectory", "style": "fill:none;stroke:black;stroke-width:1"}
+				]
+			}
+		}
 	}
 }

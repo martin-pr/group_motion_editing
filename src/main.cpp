@@ -6,24 +6,14 @@
 #include <boost/property_tree/json_parser.hpp>
 
 #include "agent_setup.h"
+#include "scenarios/base.h"
+#include "factory.h"
+#include "tools.h"
 
 namespace po = boost::program_options;
 
 using std::cout;
 using std::endl;
-
-namespace {
-	void printPtree(const boost::property_tree::ptree& input, const unsigned indent = 0) {
-		cout << input.data() << endl;
-
-		for(auto& it : input) {
-			for(unsigned a=0;a<indent;++a)
-				cout << "  ";
-			cout << it.first << ": " << std::flush;
-			printPtree(it.second, indent+1);
-		}
-	}
-}
 
 int main(int argc, char* argv[]) {
 	// Declare the supported options.
@@ -48,22 +38,29 @@ int main(int argc, char* argv[]) {
 	boost::property_tree::ptree tree;
 	boost::property_tree::read_json(vm["input"].as<std::string>(), tree);
 
-	printPtree(tree);
-	cout << endl;
+	// cout << tree << endl;
 
 	// read the agent setups
 	std::map<std::string, agent_setup> agent_setups;
 	for(auto& setup : tree.get_child("agent_setups"))
 		agent_setups.insert(std::make_pair(setup.first, agent_setup(setup.second)));
 
-	for(auto& setup : agent_setups) {
-		cout << "setup " << setup.first << ":" << endl;
-		for(auto& agent : setup.second) {
-			cout << "  agent" << endl;
-			for(float t=0; t<1; t += agent.sampling)
-				cout << "    " << agent.curve[t] << endl;
-		}
-	}
+	// for(auto& setup : agent_setups) {
+	// 	cout << "setup " << setup.first << ":" << endl;
+	// 	for(auto& agent : setup.second) {
+	// 		cout << "  agent" << endl;
+	// 		for(float t=0; t<1; t += agent.sampling)
+	// 			cout << "    " << agent.curve[t] << endl;
+	// 	}
+	// }
+
+	// read the scenarios
+	std::map<std::string, std::unique_ptr<scenarios::base>> scenarios;
+	for(auto& setup : tree.get_child("scenarios"))
+		scenarios.insert(std::make_pair(setup.first,
+			std::move(factory<scenarios::base, boost::property_tree::ptree>::singleton().create(
+				setup.second.get_child("type").data(),
+				setup.second))));
 
 	return 0;
 }
