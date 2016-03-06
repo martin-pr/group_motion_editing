@@ -1,31 +1,21 @@
 #pragma once
 
-#include <vector>
+#include <memory>
 
 #include <boost/property_tree/ptree.hpp>
 
-#include <ImathVec.h>
+#include "agents.h"
 
-#include "bezier.h"
-
+/// essentially just a reader for agent setups.
+/// The inputs are hardcoded for now - no need for factories as the number of possible inputs
+/// will probably stay quite limited.
 class agent_setup {
 	public:
-		struct agent {
-			bezier<Imath::Vec2<float>> curve;
-			float sampling;
-		};
-
 		agent_setup(const boost::property_tree::ptree& value);
 
-		typedef std::vector<agent>::const_iterator const_iterator;
-		const_iterator begin() const;
-		const_iterator end() const;
-
-		typedef std::vector<agent>::iterator iterator;
-		iterator begin();
-		iterator end();
+		const agents& operator* () const;
 
 	protected:
 	private:
-		std::vector<agent> m_agents;
+		std::unique_ptr<agents> m_agents;
 };

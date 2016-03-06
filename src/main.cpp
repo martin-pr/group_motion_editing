@@ -45,15 +45,6 @@ int main(int argc, char* argv[]) {
 	for(auto& setup : tree.get_child("agent_setups"))
 		agent_setups.insert(std::make_pair(setup.first, agent_setup(setup.second)));
 
-	// for(auto& setup : agent_setups) {
-	// 	cout << "setup " << setup.first << ":" << endl;
-	// 	for(auto& agent : setup.second) {
-	// 		cout << "  agent" << endl;
-	// 		for(float t=0; t<1; t += agent.sampling)
-	// 			cout << "    " << agent.curve[t] << endl;
-	// 	}
-	// }
-
 	// read the scenarios
 	std::map<std::string, std::unique_ptr<scenarios::base>> scenarios;
 	for(auto& setup : tree.get_child("scenarios"))
