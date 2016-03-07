@@ -5,12 +5,16 @@
 #include <boost/lexical_cast.hpp>
 
 #include "../factory.h"
+#include "../agents.h"
+#include "../scenarios/base.h"
 
 namespace visualisations {
 
 class base : public boost::noncopyable {
 	public:
 		virtual ~base() {};
+
+		virtual void draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const = 0;
 
 	protected:
 	private:

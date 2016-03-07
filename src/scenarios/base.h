@@ -6,6 +6,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/iterator/transform_iterator.hpp>
 
 #include "../factory.h"
 #include "../visualisation.h"
@@ -18,9 +19,11 @@ class base : public boost::noncopyable {
 
 		virtual ~base() {};
 
+		const std::map<std::string, std::unique_ptr<visualisation>>& visualisations() const;
+
 	protected:
 	private:
-		std::map<std::string, visualisation> m_visualisations;
+		std::map<std::string, std::unique_ptr<visualisation>> m_visualisations;
 };
 
 template<typename DERIVED>
