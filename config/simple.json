@@ -26,6 +26,9 @@
 				"simple_agents": [
 					{"type": "agent_trajectory", "render": "line", "style": "fill:none;stroke:black;stroke-width:1"},
 					{"type": "agent_trajectory", "render": "circle", "r": 2, "style": "fill:black;stroke:none"}
+				],
+				"animated_agents": [
+					{"type": "animated_trajectory", "r": 2, "duration": 2, "style": "fill:black;stroke:none"}
 				]
 			}
 		}
