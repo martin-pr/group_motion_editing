@@ -6,7 +6,7 @@
 
 #include "agents.h"
 
-/// essentially just a reader for agent setups.
+/// essentially just a reader for agents class.
 /// The inputs are hardcoded for now - no need for factories as the number of possible inputs
 /// will probably stay quite limited.
 class agent_setup {

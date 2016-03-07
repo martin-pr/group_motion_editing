@@ -21,13 +21,18 @@ namespace {
 			curve.add_point(Imath::Vec2<float>(p[0], p[1]));
 		}
 
-		// sampling the curve into frames
+		// sampling the curve into frames (using integer algebra to avoid numerical errors)
 		const float sampling = value.get<float>("sampling");
+		assert(sampling > 0.0f);
+		// get the integer divisor
+		const unsigned div = round(1.0f / sampling);
 
 		// add the values
 		std::vector<agents::agent_frame> result;
-		for(float t=0.0f; t<=1.0f; t += sampling)
+		for(unsigned a=0; a<=div; ++a) {
+			const float t = (float)a / (float)div;
 			result.push_back(agents::agent_frame{curve[t], curve.normdiff(t)});
+		}
 
 		return result;
 	}
