@@ -1,18 +1,18 @@
-#include "agent_trajectory.h"
+#include "source_trajectory.h"
 
 namespace visualisations {
 
-agent_trajectory::agent_trajectory(const boost::property_tree::ptree& config) {
+source_trajectory::source_trajectory(const boost::property_tree::ptree& config) {
 	m_style = config.get("style", std::string(""));
 	m_render = config.get("render", std::string("line"));
 	m_radius = config.get("r", 5.0f);
 }
 
-agent_trajectory::~agent_trajectory() {
+source_trajectory::~source_trajectory() {
 
 }
 
-void agent_trajectory::draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const {
+void source_trajectory::draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const {
 	if(m_render == "line")
 		for(unsigned a=0; a<input.agent_count(); ++a) {
 			svg << "<polyline points=\"";
@@ -31,8 +31,8 @@ void agent_trajectory::draw(std::ostream& svg, const agents& input, const scenar
 	}
 }
 
-const std::string agent_trajectory::type() {
-	return "agent_trajectory";
+const std::string source_trajectory::type() {
+	return "source_trajectory";
 }
 
 }

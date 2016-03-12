@@ -6,13 +6,13 @@
 
 namespace visualisations {
 
-class agent_trajectory : public visualisation<agent_trajectory> {
+class source_trajectory : public visualisation<source_trajectory> {
 	public:
 		/// required for the factory mechanism
 		static const std::string type();
 
-		agent_trajectory(const boost::property_tree::ptree& config);
-		virtual ~agent_trajectory();
+		source_trajectory(const boost::property_tree::ptree& config);
+		virtual ~source_trajectory();
 
 		virtual void draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const override;
 

@@ -1,20 +1,20 @@
-#include "animated_trajectory.h"
+#include "animated_source_trajectory.h"
 
 using std::endl;
 
 namespace visualisations {
 
-animated_trajectory::animated_trajectory(const boost::property_tree::ptree& config) {
+animated_source_trajectory::animated_source_trajectory(const boost::property_tree::ptree& config) {
 	m_style = config.get("style", std::string(""));
 	m_radius = config.get("r", 5.0f);
 	m_duration = config.get("duration", 5.0f);
 }
 
-animated_trajectory::~animated_trajectory() {
+animated_source_trajectory::~animated_source_trajectory() {
 
 }
 
-void animated_trajectory::draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const {
+void animated_source_trajectory::draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const {
 	svg << "<style type=\"text/css\">" << endl;
 	for(unsigned a=0; a<input.agent_count(); ++a) {
 		svg << "  @keyframes agent_" << a << "_anim {" << endl;
@@ -40,8 +40,8 @@ void animated_trajectory::draw(std::ostream& svg, const agents& input, const sce
 			"/>" << endl;
 }
 
-const std::string animated_trajectory::type() {
-	return "animated_trajectory";
+const std::string animated_source_trajectory::type() {
+	return "animated_source_trajectory";
 }
 
 }
