@@ -33,13 +33,27 @@
 			}
 		},
 
-		"shepards": {
+		"shepards_10": {
 			"type": "shepards",
-			"curve": {"points": [[60,0], [100,300], [400,340]], "sampling": 0.05},
+			"curve": {"points": [[200,30], [450,200], [-50,200], [200,370]], "sampling": 0.02},
+			"power": -10,
 
 			"visualisations": {
 				"leading_curve": [
-					{"type": "vector_field", "bbox": [0, 0, 400, 400], "sampling": 10, "style": "fill:none;stroke:grey;stroke-width:0.5"},
+					{"type": "vector_field", "bbox": [0, 0, 400, 400], "sampling": 10, "style": "fill:grey;stroke:grey;stroke-width:0.5"},
+					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1"}
+				]
+			}
+		},
+
+		"shepards_2": {
+			"type": "shepards",
+			"curve": {"points": [[200,30], [450,200], [-50,200], [200,370]], "sampling": 0.02},
+			"power": -2,
+
+			"visualisations": {
+				"leading_curve": [
+					{"type": "vector_field", "bbox": [0, 0, 400, 400], "sampling": 10, "style": "fill:grey;stroke:grey;stroke-width:0.5"},
 					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1"}
 				]
 			}

@@ -19,6 +19,7 @@ shepards::shepards(const boost::property_tree::ptree& config) : scenario<shepard
 	}
 
 	m_sampling = config.get("curve.sampling", 0.05);
+	m_power = config.get("power", -2);
 
 	const unsigned sample_count = (unsigned)round(1.0f / m_sampling);
 	for(unsigned s=0; s<=sample_count; ++s) {
@@ -45,8 +46,7 @@ Imath::Vec2<float> shepards::sample(const Imath::Vec2<float>& pos) const {
 	float norm = 0.0f;
 
 	for(auto& p : m_samples) {
-		// shepards fn with power -2 (just an arbitrary choice for this test)
-		const float weight = pow((pos - p.first).length(), -2);
+		const float weight = pow((pos - p.first).length(), m_power);
 
 		norm += weight;
 		value += p.second * weight;

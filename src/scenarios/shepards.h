@@ -21,7 +21,7 @@ class shepards : public scenario<shepards> {
 	protected:
 	private:
 		bezier<Imath::Vec2<float>> m_leading_curve;
-		float m_sampling;
+		float m_sampling, m_power;
 
 		std::vector<std::pair<Imath::Vec2<float>, Imath::Vec2<float>>> m_samples;
 };
