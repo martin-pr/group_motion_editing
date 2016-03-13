@@ -73,6 +73,35 @@ agents shepards::apply(const agents& source) const {
 	for(unsigned agentId = 0; agentId < source.agent_count(); ++agentId) {
 		auto& agent = source[agentId];
 
+		// first frame's positions should be adjusted to the local axes
+		{
+			// compute the angular difference between line's direction and curve's beginning
+			const Imath::Vec2<float> s = m_leading_curve.normdiff(0.0f);
+			// and compute its angle to world axes
+			const float sAngle = atan2(s.y, s.x);
+			// the full angle is the difference
+			const float angle = sAngle - lAngle;
+
+			const float cs = cos(angle);
+			const float sn = sin(angle);
+
+			// make a vector from line origin to trajectory start
+			const Imath::Vec2<float> d = agent[0].position - l.origin;
+
+			// rotate it to match local coord system, relative to leading curve's start point
+			result[agentId][0].position = m_leading_curve[0] + Imath::Vec2<float>(
+				d.x * cs - d.y * sn,
+				d.y * cs + d.x * sn
+			);
+
+			// and rotate direction in the same manner
+			const Imath::Vec2<float>& dir = agent[0].direction;
+			result[agentId][0].direction = Imath::Vec2<float>(
+				dir.x * cs - dir.y * sn,
+				dir.y * cs + dir.x * sn
+			);
+		}
+
 		for(unsigned frameId = 0; frameId < agent.size(); ++frameId) {
 			// evaluate the shepard's function at a local point
 			const Imath::Vec2<float> s = sample(result[agentId][std::max((int)frameId-1, 0)].position);
