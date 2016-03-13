@@ -48,6 +48,11 @@ Imath::Vec2<float> shepards::sample(const Imath::Vec2<float>& pos) const {
 	for(auto& p : m_samples) {
 		const float weight = pow((pos - p.first).length(), m_power);
 
+		// if there is a division by zero, we've hit precisely a point in the source curve
+		//   -> just return its value and be done
+		if(std::isinf(weight))
+			return p.second;
+
 		norm += weight;
 		value += p.second * weight;
 	}
@@ -56,7 +61,49 @@ Imath::Vec2<float> shepards::sample(const Imath::Vec2<float>& pos) const {
 }
 
 agents shepards::apply(const agents& source) const {
-	return source;
+	// get the heading line / direction
+	line l = source.heading();
+	// normalize the direction vector - we'll need to use it to compute acos
+	l.direction.normalize();
+	// and compute the angle to the world axes
+	const float lAngle = atan2(l.direction.y, l.direction.x);
+
+	agents result(source);
+
+	for(unsigned agentId = 0; agentId < source.agent_count(); ++agentId) {
+		auto& agent = source[agentId];
+
+		for(unsigned frameId = 0; frameId < agent.size(); ++frameId) {
+			// evaluate the shepard's function at a local point
+			const Imath::Vec2<float> s = sample(result[agentId][std::max((int)frameId-1, 0)].position);
+			// and compute its angle to world axes
+			const float sAngle = atan2(s.y, s.x);
+			// the full angle is the difference
+			const float angle = sAngle - lAngle;
+
+			const float cs = cos(angle);
+			const float sn = sin(angle);
+
+			// update the position, except first frame (there we keep the original)
+			if(frameId > 0) {
+				Imath::Vec2<float> diff = agent[frameId].position - agent[frameId-1].position;
+
+				result[agentId][frameId].position = result[agentId][frameId-1].position + Imath::Vec2<float>(
+					diff.x * cs - diff.y * sn,
+					diff.y * cs + diff.x * sn
+				);
+			}
+
+			// and update the direction
+			auto& dir = result[agentId][frameId].direction;
+			dir = Imath::Vec2<float>(
+				dir.x * cs - dir.y * sn,
+				dir.y * cs + dir.x * sn
+			);
+		}
+	}
+
+	return result;
 }
 
 }

@@ -1,4 +1,8 @@
 {
+	"setup": {
+		"width": 400,
+		"height": 400
+	},
 	"agent_setups": {
 		"straight" : [
 			{ "type": "curve", "points": [[200,0], [200,400]], "sampling": 0.05 },
@@ -16,6 +20,10 @@
 			{ "type": "curve", "points": [[200,0], [200,160], [200,200]], "sampling": 0.05 },
 			{ "type": "curve", "points": [[120,0], [200,120], [280,400]], "sampling": 0.05 },
 			{ "type": "curve", "points": [[280,0], [200,280], [120,400]], "sampling": 0.05 }
+		],
+
+		"turn_around" : [
+			{ "type": "curve", "points": [[200,25], [140,200], [150,700], [260,200], [240,50]], "sampling": 0.025 }
 		]
 	},
 
@@ -40,6 +48,10 @@
 
 			"visualisations": {
 				"leading_curve": [
+					{"type": "source_trajectory", "render": "circle", "r": 2, "style": "fill:black;stroke:none"},
+					{"type": "output_trajectory", "render": "circle", "r": 2, "style": "fill:blue;stroke:none"},
+					{"type": "heading_direction", "style": "fill:red;stroke:red"},
+
 					{"type": "vector_field", "bbox": [0, 0, 400, 400], "sampling": 10, "style": "fill:grey;stroke:grey;stroke-width:0.5"},
 					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1"}
 				]
@@ -53,6 +65,10 @@
 
 			"visualisations": {
 				"leading_curve": [
+					{"type": "source_trajectory", "render": "circle", "r": 2, "style": "fill:black;stroke:none"},
+					{"type": "output_trajectory", "render": "circle", "r": 2, "style": "fill:blue;stroke:none"},
+					{"type": "heading_direction", "style": "fill:red;stroke:red"},
+
 					{"type": "vector_field", "bbox": [0, 0, 400, 400], "sampling": 10, "style": "fill:grey;stroke:grey;stroke-width:0.5"},
 					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1"}
 				]
