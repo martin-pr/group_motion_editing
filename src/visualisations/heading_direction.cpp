@@ -15,7 +15,7 @@ heading_direction::heading_direction(const boost::property_tree::ptree& config) 
 heading_direction::~heading_direction() {
 }
 
-void heading_direction::draw(std::ostream& svg, const agents& input, const scenarios::base& _scenario) const {
+void heading_direction::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& _scenario) const {
 	assert(input.agent_count() > 0 && input.frame_count() > 0);
 
 	// collect all points

@@ -14,7 +14,7 @@ class leading_curve : public visualisation<leading_curve> {
 		leading_curve(const boost::property_tree::ptree& config);
 		virtual ~leading_curve();
 
-		virtual void draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const override;
+		virtual void draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const override;
 
 	protected:
 	private:

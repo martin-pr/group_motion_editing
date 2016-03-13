@@ -12,7 +12,7 @@ leading_curve::~leading_curve() {
 
 }
 
-void leading_curve::draw(std::ostream& svg, const agents& input, const scenarios::base& _scenario) const {
+void leading_curve::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& _scenario) const {
 	const scenarios::shepards& scenario = dynamic_cast<const scenarios::shepards&>(_scenario);
 
 	svg << "<polyline points=\"";

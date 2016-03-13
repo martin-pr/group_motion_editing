@@ -16,7 +16,7 @@ class vector_field : public visualisation<vector_field> {
 		vector_field(const boost::property_tree::ptree& config);
 		virtual ~vector_field();
 
-		virtual void draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const override;
+		virtual void draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const override;
 
 	protected:
 	private:

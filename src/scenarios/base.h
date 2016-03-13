@@ -10,6 +10,7 @@
 
 #include "../factory.h"
 #include "../visualisation.h"
+#include "../agents.h"
 
 namespace scenarios {
 
@@ -20,6 +21,8 @@ class base : public boost::noncopyable {
 		virtual ~base() {};
 
 		const std::map<std::string, std::unique_ptr<visualisation>>& visualisations() const;
+
+		virtual agents apply(const agents& source) const = 0;
 
 	protected:
 	private:

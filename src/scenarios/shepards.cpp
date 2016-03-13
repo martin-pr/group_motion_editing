@@ -55,4 +55,8 @@ Imath::Vec2<float> shepards::sample(const Imath::Vec2<float>& pos) const {
 	return value / norm;
 }
 
+agents shepards::apply(const agents& source) const {
+	return source;
+}
+
 }

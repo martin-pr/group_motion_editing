@@ -18,7 +18,7 @@ visualisation::~visualisation() {
 
 }
 
-void visualisation::draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const {
+void visualisation::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const {
 	for(auto& vis : m_visualisations)
-		vis->draw(svg, input, scenario);
+		vis->draw(svg, input, output, scenario);
 }

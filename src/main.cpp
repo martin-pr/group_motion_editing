@@ -58,11 +58,13 @@ int main(int argc, char* argv[]) {
 	// for each scenario, each agent setup and each visualisation, generate an SVG
 	for(auto& s : scenarios) {
 		for(auto& a : agent_setups) {
+			const agents output = s.second->apply(*a.second);
+
 			for(auto& v : s.second->visualisations()) {
 				const std::string filename = vm["output"].as<std::string>() + "/" + s.first + "_" + a.first + "_" + v.first + ".svg";
 
 				std::stringstream svgContent;
-				v.second->draw(svgContent, *a.second, *s.second);
+				v.second->draw(svgContent, *a.second, output, *s.second);
 
 				std::ofstream svg(filename.c_str());
 

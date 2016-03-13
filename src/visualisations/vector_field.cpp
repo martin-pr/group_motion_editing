@@ -21,7 +21,7 @@ vector_field::vector_field(const boost::property_tree::ptree& config) {
 vector_field::~vector_field() {
 }
 
-void vector_field::draw(std::ostream& svg, const agents& input, const scenarios::base& _scenario) const {
+void vector_field::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& _scenario) const {
 	const scenarios::shepards& scenario = dynamic_cast<const scenarios::shepards&>(_scenario);
 
 	svg << "<defs>"

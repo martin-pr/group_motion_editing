@@ -14,7 +14,7 @@ animated_source_trajectory::~animated_source_trajectory() {
 
 }
 
-void animated_source_trajectory::draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const {
+void animated_source_trajectory::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const {
 	svg << "<style type=\"text/css\">" << endl;
 	for(unsigned a=0; a<input.agent_count(); ++a) {
 		svg << "  @keyframes agent_" << a << "_anim {" << endl;
