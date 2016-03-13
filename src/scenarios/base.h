@@ -16,17 +16,9 @@ namespace scenarios {
 
 class base : public boost::noncopyable {
 	public:
-		base(const boost::property_tree::ptree& config);
-
 		virtual ~base() {};
 
-		const std::map<std::string, std::unique_ptr<visualisation>>& visualisations() const;
-
 		virtual agents apply(const agents& source) const = 0;
-
-	protected:
-	private:
-		std::map<std::string, std::unique_ptr<visualisation>> m_visualisations;
 };
 
 template<typename DERIVED>
@@ -46,7 +38,7 @@ template<typename DERIVED>
 factory<base, boost::property_tree::ptree>::registration<DERIVED> scenario<DERIVED>::s_factory;
 
 template<typename DERIVED>
-scenario<DERIVED>::scenario(const boost::property_tree::ptree& config) : base(config) {
+scenario<DERIVED>::scenario(const boost::property_tree::ptree& config) {
 }
 
 template<typename DERIVED>
