@@ -14,7 +14,7 @@ class base : public boost::noncopyable {
 	public:
 		virtual ~base() {};
 
-		virtual void draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const = 0;
+		virtual void draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const = 0;
 
 	protected:
 	private:

@@ -10,6 +10,8 @@ class empty : public scenario<empty> {
 
 		static std::string type();
 
+		virtual agents apply(const agents& source) const override;
+
 	protected:
 	private:
 };

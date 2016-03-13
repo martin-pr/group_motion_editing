@@ -18,7 +18,7 @@ class visualisation : public boost::noncopyable {
 		visualisation(const boost::property_tree::ptree& config);
 		~visualisation();
 
-		void draw(std::ostream& svg, const agents& input, const scenarios::base& scenario) const;
+		void draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const;
 
 	protected:
 	private:
