@@ -15,6 +15,10 @@ class agents {
 				agent_frame& operator[](unsigned frameId);
 				const agent_frame& operator[](unsigned frameId) const;
 
+				typedef std::vector<agent_frame>::const_iterator const_iterator;
+				const_iterator begin() const;
+				const_iterator end() const;
+
 			private:
 				agent(unsigned frameCount);
 
@@ -32,6 +36,10 @@ class agents {
 
 		agent& operator[](unsigned agentId);
 		const agent& operator[](unsigned agentId) const;
+
+		typedef std::vector<agent>::const_iterator const_iterator;
+		const_iterator begin() const;
+		const_iterator end() const;
 
 	protected:
 	private:

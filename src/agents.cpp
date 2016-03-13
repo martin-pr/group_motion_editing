@@ -15,6 +15,15 @@ const agents::agent_frame& agents::agent::operator[](unsigned frameId) const {
 agents::agent::agent(unsigned frameCount) : m_frames(frameCount) {
 }
 
+agents::agent::const_iterator agents::agent::begin() const {
+	return m_frames.begin();
+}
+
+agents::agent::const_iterator agents::agent::end() const {
+	return m_frames.end();
+}
+
+
 ///////////////
 
 
@@ -46,4 +55,12 @@ agents::agent& agents::operator[](unsigned agentId) {
 const agents::agent& agents::operator[](unsigned agentId) const {
 	assert(agentId < m_agents.size());
 	return m_agents[agentId];
+}
+
+agents::const_iterator agents::begin() const {
+	return m_agents.begin();
+}
+
+agents::const_iterator agents::end() const {
+	return m_agents.end();
 }
