@@ -1,7 +1,8 @@
 {
-	"setup": {
+	"scene": {
 		"width": 400,
-		"height": 400
+		"height": 400,
+		"separation": 20
 	},
 	"agent_setups": {
 		"straight" : [

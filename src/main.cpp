@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 	desc.add_options()
 		("help", "produce help message")
 		("input", po::value<std::string>(), "input json configuration file")
-		("output", po::value<std::string>(), "output directory")
+		("output", po::value<std::string>(), "output SVG filename")
 	;
 
 	// process the options
@@ -77,30 +77,51 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	const unsigned width = tree.get<unsigned>("scene.width");
+	const unsigned height = tree.get<unsigned>("scene.height");
+	const unsigned separation = tree.get<unsigned>("scene.separation");
+
+	unsigned x = 0, y = 0;
+
+	// open the output file
+	std::stringstream svg;
+
 	// for each scenario, each agent setup and each visualisation, generate an SVG
 	for(auto& s : scenario_setups) {
-		for(auto& a : agent_setups) {
-			for(auto& sc : s.scenarios) {
-				const agents output = sc.second->apply(*a.second);
+		for(auto& sc : s.scenarios) {
+			for(auto& v : s.visualisations) {
+				y += separation / 2;
 
-				for(auto& v : s.visualisations) {
-					const std::string filename = vm["output"].as<std::string>() + "/" + s.name + "_" + sc.first + "_" + a.first + "_" + v.first + ".svg";
+				x = 0;
+				for(auto& a : agent_setups) {
+					x += separation / 2;
 
-					std::stringstream svgContent;
-					v.second->draw(svgContent, *a.second, output, *sc.second);
+					const agents output = sc.second->apply(*a.second);
 
-					std::ofstream svg(filename.c_str());
-
-					svg << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl;
-					svg << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" << endl;
-
-					svg << "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">" << endl;
-					svg << svgContent.str();
+					svg << "<svg x=\"" << x << "\" y=\"" << y << "\" width=\"" << width << "\" height=\"" << height << "\">" << endl;
+					v.second->draw(svg, *a.second, output, *sc.second);
 					svg << "</svg>" << endl;
+
+					x += width + separation / 2;
 				}
+
+				y += height + separation / 2;
 			}
 		}
 	}
+
+	///
+
+	std::ofstream file(vm["output"].as<std::string>().c_str());
+
+	file << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl;
+	file << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" << endl;
+
+	file << "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"" << x << "\" height=\"" << y << "\">" << endl;
+
+	file << svg.str();
+
+	file << "</svg>" << endl;
 
 	return 0;
 }
