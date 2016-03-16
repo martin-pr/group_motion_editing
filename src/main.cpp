@@ -80,32 +80,69 @@ int main(int argc, char* argv[]) {
 	const unsigned width = tree.get<unsigned>("scene.width");
 	const unsigned height = tree.get<unsigned>("scene.height");
 	const unsigned separation = tree.get<unsigned>("scene.separation");
+	const unsigned font_size = tree.get<unsigned>("scene.font_size");
 
-	unsigned x = 0, y = 0;
-
-	// open the output file
+	// the output stream
 	std::stringstream svg;
+
+	unsigned y = 0, x = 0;
 
 	// for each scenario, each agent setup and each visualisation, generate an SVG
 	for(auto& s : scenario_setups) {
+		// put the scenario heading
+		svg << "<rect x=\"0\" y=\"" << y+font_size*0.5 << "\" "
+			"width=\"" << agent_setups.size()*width + (agent_setups.size()-1)*separation + font_size*3.5 << "\" "
+			"height=\"" << font_size * 3 << "\" "
+			"fill=\"grey\"/>" << endl;
+
+		svg << "<text font-family=\"Verdana, sans-serif\" font-weight=\"bold\" "
+			"font-size=\"" << font_size*2 << "\" "
+			"x=\"" << font_size/2 << "\" y=\"" << y+font_size*2.5 << "\" "
+			"fill=\"white\">" << s.name <<"</text>" << endl;
+
+		y += font_size*3;
+
+		{
+			unsigned ctr = 0;
+			for(auto& a : agent_setups) {
+				svg << "<text font-family=\"Verdana, sans-serif\" "
+					"font-size=\"" << font_size << "\" "
+					"x=\"" << (width+separation)*ctr + font_size*3.5 << "\" y=\"" << y+font_size*1.5 << "\" "
+					">" << a.first <<"</text>" << endl;
+
+				++ctr;
+			}
+			y += font_size * 2;
+		}
+
 		for(auto& sc : s.scenarios) {
+			svg << "<rect x=\"0\" y=\"" << y << "\" "
+				"width=\"" << font_size*1.75 << "\" "
+				"height=\"" << s.visualisations.size()*height + (s.visualisations.size()-1)*separation << "\" "
+				"fill=\"lightgrey\"/>" << endl;
+
+			svg << "<text font-family=\"Verdana, sans-serif\" font-weight=\"bold\" "
+				"font-size=\"" << font_size << "\" x=\"" << font_size*1.5 << "\" "
+				"y=\"" << y + separation*(s.visualisations.size()-1) + height*(s.visualisations.size()) << "\" "
+				"fill=\"white\" transform=\"rotate(-90 " << font_size*1.125 << ", " << y + separation*(s.visualisations.size()-1) + height*(s.visualisations.size()) << ")\">" << sc.first <<"</text>" << endl;
+
 			for(auto& v : s.visualisations) {
-				y += separation / 2;
+				svg << "<text font-family=\"Verdana, sans-serif\" "
+					"font-size=\"" << font_size << "\" x=\"" << font_size*3 << "\" y=\"" << y+height << "\" "
+					"transform=\"rotate(-90 " << font_size*3 << ", " << y+height << ")\">" << v.first <<"</text>" << endl;
 
-				x = 0;
+				x = font_size*3.5;
 				for(auto& a : agent_setups) {
-					x += separation / 2;
-
 					const agents output = sc.second->apply(*a.second);
 
 					svg << "<svg x=\"" << x << "\" y=\"" << y << "\" width=\"" << width << "\" height=\"" << height << "\">" << endl;
 					v.second->draw(svg, *a.second, output, *sc.second);
 					svg << "</svg>" << endl;
 
-					x += width + separation / 2;
+					x += width + separation;
 				}
 
-				y += height + separation / 2;
+				y += height + separation;
 			}
 		}
 	}

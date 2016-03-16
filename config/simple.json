@@ -2,7 +2,8 @@
 	"scene": {
 		"width": 400,
 		"height": 400,
-		"separation": 20
+		"separation": 20,
+		"font_size": 20
 	},
 	"agent_setups": {
 		"straight" : [
