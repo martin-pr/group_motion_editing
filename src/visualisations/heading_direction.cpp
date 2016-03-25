@@ -16,10 +16,12 @@ heading_direction::~heading_direction() {
 }
 
 void heading_direction::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& _scenario) const {
+	const unsigned id = uid();
+
 	const line l = input.heading();
 
 	svg << "<defs>"
-    			"<marker id=\"heading_arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"3\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">"
+    			"<marker id=\"heading_arrow_" << id << "\" markerWidth=\"10\" markerHeight=\"10\" refX=\"3\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">"
       				"<path d=\"M0,0 L0,6 L9,3 z\" style=\"" << m_style << "\" />"
     			"</marker>"
   			"</defs>" << std::endl;
@@ -30,7 +32,7 @@ void heading_direction::draw(std::ostream& svg, const agents& input, const agent
 		"x2=\"" << (l.origin + l.direction).x << "\" "
 		"y2=\"" << (l.origin + l.direction).y << "\" "
 		"style=\"" << m_style << "\" "
-		"marker-end=\"url(#heading_arrow)\" "
+		"marker-end=\"url(#heading_arrow_" << id << ")\" "
 		" />" << std::endl;
 }
 

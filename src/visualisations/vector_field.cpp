@@ -22,10 +22,12 @@ vector_field::~vector_field() {
 }
 
 void vector_field::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& _scenario) const {
+	const unsigned id = uid();
+
 	const scenarios::shepards& scenario = dynamic_cast<const scenarios::shepards&>(_scenario);
 
 	svg << "<defs>"
-    			"<marker id=\"field_arrow\" markerWidth=\"5\" markerHeight=\"5\" refX=\"1.5\" refY=\"1.5\" orient=\"auto\" markerUnits=\"strokeWidth\">"
+    			"<marker id=\"field_arrow_" << id << "\" markerWidth=\"5\" markerHeight=\"5\" refX=\"1.5\" refY=\"1.5\" orient=\"auto\" markerUnits=\"strokeWidth\">"
       				"<path d=\"M0,0 L0,3 L4.5,1.5 z\" style=\"" << m_style << "\" />"
     			"</marker>"
   			"</defs>" << std::endl;
@@ -44,7 +46,7 @@ void vector_field::draw(std::ostream& svg, const agents& input, const agents& ou
 				"x2=\"" << (pos.x + val.x) << "\" "
 				"y2=\"" << (pos.y + val.y) << "\" "
 				"style=\"" << m_style << "\" "
-				"marker-end=\"url(#field_arrow)\" "
+				"marker-end=\"url(#field_arrow_" << id << ")\" "
 				" />" << std::endl;
 		}
 }

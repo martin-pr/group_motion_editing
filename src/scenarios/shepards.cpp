@@ -6,8 +6,6 @@ using std::endl;
 namespace scenarios {
 
 shepards::shepards(const boost::property_tree::ptree& config) : scenario<shepards>(config) {
-	assert(config.get<std::string>("type") == "shepards");
-
 	for(auto& point : config.get_child("curve.points")) {
 		std::vector<float> p;
 		for(auto& pi : point.second)

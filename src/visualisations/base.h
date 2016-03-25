@@ -17,7 +17,8 @@ class base : public boost::noncopyable {
 		virtual void draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const = 0;
 
 	protected:
-	private:
+		/// returns a "unique id" for use as element IDs in a single SVG file
+		static unsigned uid();
 };
 
 template<typename DERIVED>
