@@ -1,49 +1,6 @@
 {
-	"height_ref": 400,
-	"scene": {
-		"width_ref": 400,
-		"width": {"$ref" : "#width_ref"},
-		"height": {"$ref" : "#/height_ref"},
-		"separation": 20,
-		"font_size": 20
-	},
-	"agent_setups": {
-		"single" : [
-			{ "type": "curve", "points": [[200,0], [200,400]], "sampling": 0.05 }
-		],
-
-		"wobble" : [
-			{ "type": "curve", "points": [[150,0], [250,100], [-150,160], [600,200], [-150,240], [250,300], [150,400]], "sampling": 0.05 }
-		],
-
-		"turn_around" : [
-			{ "type": "curve", "points": [[200,25], [140,200], [150,700], [260,200], [240,50]], "sampling": 0.025 }
-		],
-
-		"straight" : [
-			{ "type": "curve", "points": [[200,0], [200,400]], "sampling": 0.05 },
-			{ "type": "curve", "points": [[120,0], [120,400]], "sampling": 0.05 },
-			{ "type": "curve", "points": [[280,0], [280,400]], "sampling": 0.05 }
-		],
-
-		"crossing" : [
-			{ "type": "curve", "points": [[200,0], [200,400]], "sampling": 0.05 },
-			{ "type": "curve", "points": [[120,0], [200,120], [280,400]], "sampling": 0.05 },
-			{ "type": "curve", "points": [[280,0], [200,280], [120,400]], "sampling": 0.05 }
-		],
-
-		"stopping" : [
-			{ "type": "curve", "points": [[200,0], [200,160], [200,200]], "sampling": 0.05 },
-			{ "type": "curve", "points": [[120,0], [200,120], [280,400]], "sampling": 0.05 },
-			{ "type": "curve", "points": [[280,0], [200,280], [120,400]], "sampling": 0.05 }
-		],
-
-		"interaction" : [
-			{ "type": "curve", "points": [[180,0], [175,230], [200,195], [200,195], [225,230], [220,0]], "sampling": 0.03 },
-			{ "type": "curve", "points": [[180,400], [175,170], [200,205], [200,205], [225,170], [220,400]], "sampling": 0.03 }
-		]
-
-	},
+	"scene": { "$ref" : "setup.json#/" },
+	"agent_setups": { "$ref" : "agent_setups.json#/" },
 
 	"scenarios": {
 		"original": {
