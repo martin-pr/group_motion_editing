@@ -1,7 +1,9 @@
 {
+	"height_ref": 400,
 	"scene": {
-		"width": 400,
-		"height": 400,
+		"width_ref": 400,
+		"width": {"$ref" : "#width_ref"},
+		"height": {"$ref" : "#/height_ref"},
 		"separation": 20,
 		"font_size": 20
 	},
