@@ -38,3 +38,7 @@ line fit(const std::vector<Imath::Vec2<float>>& points) {
 
 	return result;
 }
+
+float line::project(const Imath::Vec2<float>& p) const {
+	return (p - origin).dot(direction);
+}

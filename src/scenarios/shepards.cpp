@@ -60,11 +60,11 @@ Imath::Vec2<float> shepards::sample(const Imath::Vec2<float>& pos) const {
 
 agents shepards::apply(const agents& source) const {
 	// get the heading line / direction
-	line l = source.heading();
+	const line l = source.heading();
 	// normalize the direction vector - we'll need to use it to compute acos
-	l.direction.normalize();
+	const Imath::Vec2<float> direction = l.direction.normalized();
 	// and compute the angle to the world axes
-	const float lAngle = atan2(l.direction.y, l.direction.x);
+	const float lAngle = atan2(direction.y, direction.x);
 
 	agents result(source);
 
@@ -73,8 +73,13 @@ agents shepards::apply(const agents& source) const {
 
 		// first frame's positions should be adjusted to the local axes
 		{
+			// project the starting point of this agent onto the fitted curve
+			//   (based on the fitting algorithm, this should lead to a value
+			//   between 0 and 1)
+			const float param = std::max(std::min(l.project(agent[0].position), 1.0f), 0.0f);
+
 			// compute the angular difference between line's direction and curve's beginning
-			const Imath::Vec2<float> s = m_leading_curve.normdiff(0.0f);
+			const Imath::Vec2<float> s = m_leading_curve.normdiff(param);
 			// and compute its angle to world axes
 			const float sAngle = atan2(s.y, s.x);
 			// the full angle is the difference
@@ -84,10 +89,10 @@ agents shepards::apply(const agents& source) const {
 			const float sn = sin(angle);
 
 			// make a vector from line origin to trajectory start
-			const Imath::Vec2<float> d = agent[0].position - l.origin;
+			const Imath::Vec2<float> d = agent[0].position - (l.origin+l.direction*param);
 
 			// rotate it to match local coord system, relative to leading curve's start point
-			result[agentId][0].position = m_leading_curve[0] + Imath::Vec2<float>(
+			result[agentId][0].position = m_leading_curve[param] + Imath::Vec2<float>(
 				d.x * cs - d.y * sn,
 				d.y * cs + d.x * sn
 			);
