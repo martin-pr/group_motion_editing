@@ -3,14 +3,12 @@
 #include <sstream>
 
 #include <boost/program_options.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
 
 #include "agent_setup.h"
 #include "scenarios/base.h"
 #include "factory.h"
 #include "tools.h"
+#include "json.h"
 
 namespace po = boost::program_options;
 
@@ -48,8 +46,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	// read the whole input into a ptree
-	boost::property_tree::ptree tree;
-	boost::property_tree::read_json(vm["input"].as<std::string>(), tree);
+	boost::property_tree::ptree tree = read_json(vm["input"].as<std::string>());
 
 	// cout << tree << endl;
 
