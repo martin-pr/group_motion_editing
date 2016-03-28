@@ -111,9 +111,11 @@ agents shepards::apply(const agents& source) const {
 
 			// update the position
 			auto position = result[agentId][frameId-1].position;
-			const Imath::Vec2<float> diff = (agent[frameId].position - agent[frameId-1].position) * (1.0f / (float)m_stepCount);
-
 			for(unsigned si=0;si<m_stepCount;++si) {
+				// compute the difference between two samples (using trajectory interpolation)
+				const float t1 = (float)(frameId-1) + (float)si / (float)m_stepCount;
+				const float t2 = (float)(frameId-1) + (float)(si+1) / (float)m_stepCount;
+				const Imath::Vec2<float> diff = agent.interpolated(t2).position - agent.interpolated(t1).position;
 
 				// evaluate the shepard's function at a local point
 				const Imath::Vec2<float> s = sample(position);
