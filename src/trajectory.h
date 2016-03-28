@@ -11,6 +11,9 @@ class trajectory {
 	public:
 		struct frame {
 			Imath::Vec2<float> position, direction;
+
+			frame operator*(const float& w) const;
+			frame operator+(const frame& fr) const;
 		};
 
 		trajectory(unsigned size);
@@ -22,8 +25,13 @@ class trajectory {
 
 		std::size_t size() const;
 
+		/// returns a reference to a frame with given index.
 		const frame& operator[](unsigned index) const;
+		/// returns a reference to a frame with given index (editable).
 		frame& operator[](unsigned index);
+
+		/// returns an interpolated frame (not a reference - edits don't change the curve)
+		frame interpolated(float t) const;
 
 		typedef std::vector<frame>::const_iterator const_iterator;
 		const_iterator begin() const;

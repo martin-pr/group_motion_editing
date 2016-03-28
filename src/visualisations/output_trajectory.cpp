@@ -29,6 +29,17 @@ void output_trajectory::draw(std::ostream& svg, const agents& input, const agent
 						"r=\"" << m_radius << "\" "
 						"style=\"" << m_style << "\" />" << std::endl;
 	}
+
+	if(m_render == "spline")
+		for(unsigned a=0; a<output.agent_count(); ++a) {
+			svg << "<polyline points=\"";
+			for(unsigned f=0; f<=(output.frame_count()-1)*6; ++f) {
+				auto fr = output[a].interpolated((float)f / 6.0f);
+
+				svg << fr.position.x << "," << fr.position.y << " ";
+			}
+			svg << "\" style=\"" << m_style << "\" />" << std::endl;
+		}
 }
 
 const std::string output_trajectory::type() {
