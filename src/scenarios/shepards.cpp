@@ -18,6 +18,7 @@ shepards::shepards(const boost::property_tree::ptree& config) : scenario<shepard
 
 	m_sampling = config.get("curve.sampling", 0.05);
 	m_power = config.get("power", -2);
+	m_stepCount = config.get("step_count", 10u);
 
 	const unsigned sample_count = (unsigned)round(1.0f / m_sampling);
 	for(unsigned s=0; s<=sample_count; ++s) {
@@ -105,9 +106,39 @@ agents shepards::apply(const agents& source) const {
 			);
 		}
 
-		for(unsigned frameId = 0; frameId < agent.size(); ++frameId) {
+		// except first frame (there we keep the original)
+		for(unsigned frameId = 1; frameId < agent.size(); ++frameId) {
+
+			// update the position
+			auto position = result[agentId][frameId-1].position;
+			for(unsigned si=0;si<m_stepCount;++si) {
+				// compute the difference between two samples (using trajectory interpolation)
+				const float t1 = (float)(frameId-1) + (float)si / (float)m_stepCount;
+				const float t2 = (float)(frameId-1) + (float)(si+1) / (float)m_stepCount;
+				const Imath::Vec2<float> diff = agent.interpolated(t2).position - agent.interpolated(t1).position;
+
+				// evaluate the shepard's function at a local point
+				const Imath::Vec2<float> s = sample(position);
+				// and compute its angle to world axes
+				const float sAngle = atan2(s.y, s.x);
+				// the full angle is the difference
+				const float angle = sAngle - lAngle;
+
+				const float cs = cos(angle);
+				const float sn = sin(angle);
+
+				// update the position
+				position += Imath::Vec2<float>(
+					diff.x * cs - diff.y * sn,
+					diff.y * cs + diff.x * sn
+				);
+			}
+
+			// and update the direction based on where the positional sample ended up
+			Imath::Vec2<float> direction = agent[frameId].direction;
+
 			// evaluate the shepard's function at a local point
-			const Imath::Vec2<float> s = sample(result[agentId][std::max((int)frameId-1, 0)].position);
+			const Imath::Vec2<float> s = sample(position);
 			// and compute its angle to world axes
 			const float sAngle = atan2(s.y, s.x);
 			// the full angle is the difference
@@ -116,22 +147,13 @@ agents shepards::apply(const agents& source) const {
 			const float cs = cos(angle);
 			const float sn = sin(angle);
 
-			// update the position, except first frame (there we keep the original)
-			if(frameId > 0) {
-				Imath::Vec2<float> diff = agent[frameId].position - agent[frameId-1].position;
-
-				result[agentId][frameId].position = result[agentId][frameId-1].position + Imath::Vec2<float>(
-					diff.x * cs - diff.y * sn,
-					diff.y * cs + diff.x * sn
-				);
-			}
-
-			// and update the direction
-			auto& dir = result[agentId][frameId].direction;
-			dir = Imath::Vec2<float>(
-				dir.x * cs - dir.y * sn,
-				dir.y * cs + dir.x * sn
+			direction = Imath::Vec2<float>(
+				direction.x * cs - direction.y * sn,
+				direction.y * cs + direction.x * sn
 			);
+
+			// save the new frame
+			result[agentId][frameId] = trajectory::frame{position, direction};
 		}
 	}
 

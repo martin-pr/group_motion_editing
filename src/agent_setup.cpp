@@ -6,7 +6,7 @@ using std::cout;
 using std::endl;
 
 namespace {
-	std::vector<agents::agent_frame> readCurve(const boost::property_tree::ptree& value) {
+	std::vector<trajectory::frame> readCurve(const boost::property_tree::ptree& value) {
 		assert(value.get<std::string>("type") == "curve");
 
 		// reading the curve points
@@ -28,10 +28,10 @@ namespace {
 		const unsigned div = round(1.0f / sampling);
 
 		// add the values
-		std::vector<agents::agent_frame> result;
+		std::vector<trajectory::frame> result;
 		for(unsigned a=0; a<=div; ++a) {
 			const float t = (float)a / (float)div;
-			result.push_back(agents::agent_frame{curve[t], curve.normdiff(t)});
+			result.push_back(trajectory::frame{curve[t], curve.normdiff(t)});
 		}
 
 		return result;
@@ -39,7 +39,7 @@ namespace {
 }
 
 agent_setup::agent_setup(const boost::property_tree::ptree& value) {
-	std::vector<std::vector<agents::agent_frame>> frames;
+	std::vector<std::vector<trajectory::frame>> frames;
 
 	// read the frame values
 	for(auto& item : value) {
