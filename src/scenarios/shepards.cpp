@@ -5,17 +5,7 @@ using std::endl;
 
 namespace scenarios {
 
-shepards::shepards(const boost::property_tree::ptree& config) : scenario<shepards>(config) {
-	for(auto& point : config.get_child("curve.points")) {
-		std::vector<float> p;
-		for(auto& pi : point.second)
-			p.push_back(pi.second.get<float>(""));
-		if(p.size() != 2)
-			throw std::runtime_error("shepards - only 2D points are supported at the moment.");
-
-		m_leading_curve.add_point(Imath::Vec2<float>(p[0], p[1]));
-	}
-
+shepards::shepards(const boost::property_tree::ptree& config) : scenario<shepards>(config), curve(config) {
 	m_sampling = config.get("curve.sampling", 0.05);
 	m_power = config.get("power", -2);
 	m_stepCount = config.get("step_count", 10u);
@@ -24,12 +14,8 @@ shepards::shepards(const boost::property_tree::ptree& config) : scenario<shepard
 	for(unsigned s=0; s<=sample_count; ++s) {
 		const float t = (float)s / (float)sample_count;
 
-		m_samples.push_back(std::make_pair(m_leading_curve[t], m_leading_curve.normdiff(t)));
+		m_samples.push_back(std::make_pair(leading_curve()[t], leading_curve().normdiff(t)));
 	}
-}
-
-const bezier<Imath::Vec2<float>>& shepards::leading_curve() const {
-	return m_leading_curve;
 }
 
 float shepards::sampling() const {
@@ -80,7 +66,7 @@ agents shepards::apply(const agents& source) const {
 			const float param = std::max(std::min(l.project(agent[0].position), 1.0f), 0.0f);
 
 			// compute the angular difference between line's direction and curve's beginning
-			const Imath::Vec2<float> s = m_leading_curve.normdiff(param);
+			const Imath::Vec2<float> s = leading_curve().normdiff(param);
 			// and compute its angle to world axes
 			const float sAngle = atan2(s.y, s.x);
 			// the full angle is the difference
@@ -93,7 +79,7 @@ agents shepards::apply(const agents& source) const {
 			const Imath::Vec2<float> d = agent[0].position - (l.origin+l.direction*param);
 
 			// rotate it to match local coord system, relative to leading curve's start point
-			result[agentId][0].position = m_leading_curve[param] + Imath::Vec2<float>(
+			result[agentId][0].position = leading_curve()[param] + Imath::Vec2<float>(
 				d.x * cs - d.y * sn,
 				d.y * cs + d.x * sn
 			);
