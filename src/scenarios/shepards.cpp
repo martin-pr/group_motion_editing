@@ -47,7 +47,7 @@ Imath::Vec2<float> shepards::sample(const Imath::Vec2<float>& pos) const {
 
 agents shepards::apply(const agents& source) const {
 	// get the heading line / direction
-	const line l = source.heading();
+	const line l = heading(source);
 	// normalize the direction vector - we'll need to use it to compute acos
 	const Imath::Vec2<float> direction = l.direction.normalized();
 	// and compute the angle to the world axes

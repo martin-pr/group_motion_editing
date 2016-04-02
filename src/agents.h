@@ -16,11 +16,6 @@ class agents {
 		unsigned agent_count() const;
 		unsigned frame_count() const;
 
-		/// computes the heading direction and origin (fits a line into the data,
-		///   with start based on lowest edge point projection, and length based on
-		///   the difference between projections of edge frames)
-		line heading() const;
-
 		trajectory& operator[](unsigned agentId);
 		const trajectory& operator[](unsigned agentId) const;
 
