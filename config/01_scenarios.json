@@ -1,0 +1,24 @@
+{
+	"scene": { "$ref" : "setup.json#/" },
+	"agent_setups": { "$ref" : "agent_setups.json#/" },
+
+	"scenarios": {
+		"source": {
+			"type": "empty",
+			"setups": {
+				"source_trajectory": {
+				}
+			},
+			"visualisations": {
+				"simple_agents": [
+					{"type": "source_trajectory", "render": "spline", "style": "fill:none;stroke:black;stroke-width:1"},
+					{"type": "source_trajectory", "render": "circle", "r": 2, "style": "fill:black;stroke:none"}
+				],
+				"animated_agents": [
+					{"type": "source_trajectory", "render": "spline", "style": "fill:none;stroke:#aaa;stroke-width:1"},
+					{"type": "animated_source_trajectory", "r": 2, "duration": 2, "style": "fill:black;stroke:none"}
+				]
+			}
+		}
+	}
+}
