@@ -19,6 +19,7 @@ class leading_curve : public visualisation<leading_curve> {
 	protected:
 	private:
 		std::string m_style;
+		unsigned m_sample_count;
 };
 
 }

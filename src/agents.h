@@ -4,7 +4,6 @@
 
 #include <ImathVec.h>
 
-#include "line_fit.h"
 #include "trajectory.h"
 
 class agents {
