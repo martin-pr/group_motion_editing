@@ -40,5 +40,5 @@ line fit(const std::vector<Imath::Vec2<float>>& points) {
 }
 
 float line::project(const Imath::Vec2<float>& p) const {
-	return (p - origin).dot(direction);
+	return (p - origin).dot(direction) / direction.dot(direction);
 }
