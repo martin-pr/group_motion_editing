@@ -13,20 +13,20 @@
 
 	"straight" : [
 		{ "type": "curve", "points": [[200,0], [200,400]], "sampling": 0.05 },
-		{ "type": "curve", "points": [[120,0], [120,400]], "sampling": 0.05 },
-		{ "type": "curve", "points": [[280,0], [280,400]], "sampling": 0.05 }
+		{ "type": "curve", "points": [[150,0], [150,400]], "sampling": 0.05 },
+		{ "type": "curve", "points": [[250,0], [250,400]], "sampling": 0.05 }
 	],
 
 	"crossing" : [
 		{ "type": "curve", "points": [[200,0], [200,400]], "sampling": 0.05 },
-		{ "type": "curve", "points": [[120,0], [200,120], [280,400]], "sampling": 0.05 },
-		{ "type": "curve", "points": [[280,0], [200,280], [120,400]], "sampling": 0.05 }
+		{ "type": "curve", "points": [[150,0], [200,120], [250,400]], "sampling": 0.05 },
+		{ "type": "curve", "points": [[250,0], [200,280], [150,400]], "sampling": 0.05 }
 	],
 
 	"stopping" : [
 		{ "type": "curve", "points": [[200,0], [200,160], [200,200]], "sampling": 0.05 },
-		{ "type": "curve", "points": [[120,0], [200,120], [280,400]], "sampling": 0.05 },
-		{ "type": "curve", "points": [[280,0], [200,280], [120,400]], "sampling": 0.05 }
+		{ "type": "curve", "points": [[150,0], [200,120], [250,400]], "sampling": 0.05 },
+		{ "type": "curve", "points": [[250,0], [200,280], [150,400]], "sampling": 0.05 }
 	],
 
 	"interaction" : [

@@ -3,35 +3,24 @@
 	"agent_setups": { "$ref" : "agent_setups.json#/" },
 
 	"scenarios": {
-		"fitting": {
-			"type": "shepards",
-			"setups": {
-				"line_fit": {
-					"curve": {"points": [[0,0	]], "sampling": 0.02}
-				}
-			},
-			"visualisations": {
-				"line_fit": [
-					{"type": "source_trajectory", "render": "spline", "style": "fill:none;stroke:#888;stroke-width:1"},
-					{"type": "source_trajectory", "render": "circle", "r": 2, "style": "fill:black;stroke:none"},
-					{"type": "heading_direction", "style": "fill:red;stroke:red"}
-				]
-			}
-		},
-
 		"shepards": {
 			"type": "shepards",
 			"setups": {
 				"power_2": {
-					"curve": {"points": [[200,30], [450,200], [-50,200], [200,370]], "sampling": 0.02},
+					"curve": { "$ref": "curve.json#/" },
 					"power": -2
 				},
 				"power_10": {
-					"curve": {"points": [[200,30], [450,200], [-50,200], [200,370]], "sampling": 0.02},
+					"curve": { "$ref": "curve.json#/" },
 					"power": -10
 				}
 			},
 			"visualisations": {
+				"field": [
+					{"type": "vector_field", "bbox": [0, 0, 400, 400], "sampling": 20, "style": "fill:grey;stroke:grey;stroke-width:0.7"},
+					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1"}
+				],
+
 				"leading_curve": [
 					{"type": "output_trajectory", "render": "spline", "style": "fill:none;stroke:#88F;"},
 					{"type": "output_trajectory", "render": "circle", "r": 2, "style": "fill:blue;stroke:none"},

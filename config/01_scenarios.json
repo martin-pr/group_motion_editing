@@ -19,6 +19,22 @@
 					{"type": "animated_source_trajectory", "r": 2, "duration": 2, "style": "fill:black;stroke:none"}
 				]
 			}
+		},
+
+		"fitting": {
+			"type": "shepards",
+			"setups": {
+				"line_fit": {
+					"curve": {"points": [[0,0]], "sampling": 0.02}
+				}
+			},
+			"visualisations": {
+				"line_fit": [
+					{"type": "source_trajectory", "render": "spline", "style": "fill:none;stroke:#888;stroke-width:1"},
+					{"type": "source_trajectory", "render": "circle", "r": 2, "style": "fill:black;stroke:none"},
+					{"type": "heading_direction", "style": "fill:red;stroke:red"}
+				]
+			}
 		}
 	}
 }
