@@ -10,7 +10,7 @@ curve::curve(const boost::property_tree::ptree& config) {
 		for(auto& pi : point.second)
 			p.push_back(pi.second.get<float>(""));
 		if(p.size() != 2)
-			throw std::runtime_error("shepards - only 2D points are supported at the moment.");
+			throw std::runtime_error("curve - only 2D points are supported at the moment.");
 
 		m_leading_curve.add_point(Imath::Vec2<float>(p[0], p[1]));
 	}

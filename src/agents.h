@@ -22,6 +22,10 @@ class agents {
 		const_iterator begin() const;
 		const_iterator end() const;
 
+		typedef std::vector<trajectory>::iterator iterator;
+		iterator begin();
+		iterator end();
+
 	protected:
 	private:
 		std::vector<trajectory> m_agents;

@@ -39,3 +39,11 @@ agents::const_iterator agents::begin() const {
 agents::const_iterator agents::end() const {
 	return m_agents.end();
 }
+
+agents::iterator agents::begin() {
+	return m_agents.begin();
+}
+
+agents::iterator agents::end() {
+	return m_agents.end();
+}

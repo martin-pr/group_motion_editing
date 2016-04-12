@@ -64,7 +64,7 @@ boost::property_tree::ptree read_json(const boost::filesystem::path& p) {
 			auto it = cache.find(can.string());
 			if(it == cache.end()) {
 				it = cache.insert(std::make_pair(can.string(), boost::property_tree::ptree())).first;
-				boost::property_tree::read_json(can.string(), it->second);
+				read_json(can.string(), it->second);
 			}
 			assert(it != cache.end());
 
