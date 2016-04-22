@@ -1,0 +1,46 @@
+{
+	"scene": { "$ref" : "setup.json#/" },
+	"agent_setups": { "$ref" : "agent_setups.json#/" },
+
+	"scenarios": {
+		"projection": {
+			"type": "projection",
+			"setups": {
+				"projected_curves": {
+					"curve": { "$ref": "curve.json#/" }
+				}
+			},
+			"visualisations": {
+				"projected_curves": [
+					{"type": "projection_curves", "style": "fill:none;stroke:#aaa;stroke-width:0.5", "distance": 20, "count": 3, "sampling": 0.01},
+					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1", "sampling": 0.01}
+				],
+				"projection_lines": [
+					{"type": "projection_lines", "style": "fill:none;stroke:#aaa;stroke-width:0.5", "length": 120, "sampling": 0.01},
+					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1", "sampling": 0.01}
+				],
+				"projected_curves_2": [
+					{"type": "projection_curves", "style": "fill:none;stroke:#aaa;stroke-width:0.5", "distance": 20, "count": 10, "sampling": 0.01},
+					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1", "sampling": 0.01}
+				]
+			}
+		},
+		"riot_projection": {
+			"type": "projection_naive",
+			"setups": {
+				"projected_curves": {
+					"curve": { "$ref": "curve.json#/" }
+				}
+			},
+			"visualisations": {
+				"projected_curves": [
+					{"type": "projection_curves", "style": "fill:none;stroke:#aaa;stroke-width:0.5", "distance": 20, "count": 3, "sampling": 0.01},
+					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1", "sampling": 0.01},
+
+					{"type": "output_trajectory", "render": "spline", "style": "fill:none;stroke:#88F;"},
+					{"type": "output_trajectory", "render": "circle", "r": 2, "style": "fill:blue;stroke:none"}
+				]
+			}
+		}
+	}
+}

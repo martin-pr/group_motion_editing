@@ -16,13 +16,14 @@ namespace scenarios {
 
 class base : public boost::noncopyable {
 	public:
+		base(const boost::property_tree::ptree& config) {}
 		virtual ~base() {};
 
 		virtual agents apply(const agents& source) const = 0;
 };
 
-template<typename DERIVED>
-class scenario : public base {
+template<typename DERIVED, typename BASE = base>
+class scenario : public BASE {
 	public:
 		scenario(const boost::property_tree::ptree& config);
 		virtual ~scenario() override;
@@ -34,15 +35,15 @@ class scenario : public base {
 
 //////////////////////////////////
 
-template<typename DERIVED>
-factory<base, boost::property_tree::ptree>::registration<DERIVED> scenario<DERIVED>::s_factory;
+template<typename DERIVED, typename BASE>
+factory<base, boost::property_tree::ptree>::registration<DERIVED> scenario<DERIVED, BASE>::s_factory;
 
-template<typename DERIVED>
-scenario<DERIVED>::scenario(const boost::property_tree::ptree& config) {
+template<typename DERIVED, typename BASE>
+scenario<DERIVED, BASE>::scenario(const boost::property_tree::ptree& config) : BASE(config) {
 }
 
-template<typename DERIVED>
-scenario<DERIVED>::~scenario() {
+template<typename DERIVED, typename BASE>
+scenario<DERIVED, BASE>::~scenario() {
 	// a dummy statement to make sure the factory doesn't get optimized away by GCC
 	boost::lexical_cast<std::string>(&s_factory);
 }

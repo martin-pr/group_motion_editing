@@ -18,7 +18,7 @@ heading_direction::~heading_direction() {
 void heading_direction::draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& _scenario) const {
 	const unsigned id = uid();
 
-	const line l = input.heading();
+	const line l = scenarios::curve::heading(input);
 
 	svg << "<defs>"
     			"<marker id=\"heading_arrow_" << id << "\" markerWidth=\"10\" markerHeight=\"10\" refX=\"3\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">"

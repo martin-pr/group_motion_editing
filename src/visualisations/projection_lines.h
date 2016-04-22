@@ -6,19 +6,20 @@
 
 namespace visualisations {
 
-class leading_curve : public visualisation<leading_curve> {
+class projection_lines : public visualisation<projection_lines> {
 	public:
 		/// required for the factory mechanism
 		static const std::string type();
 
-		leading_curve(const boost::property_tree::ptree& config);
-		virtual ~leading_curve();
+		projection_lines(const boost::property_tree::ptree& config);
+		virtual ~projection_lines();
 
 		virtual void draw(std::ostream& svg, const agents& input, const agents& output, const scenarios::base& scenario) const override;
 
 	protected:
 	private:
 		std::string m_style;
+		float m_length;
 		unsigned m_sample_count;
 };
 
