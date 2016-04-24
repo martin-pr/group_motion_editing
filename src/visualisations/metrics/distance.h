@@ -2,9 +2,8 @@
 
 #include <boost/property_tree/ptree.hpp>
 
-#include <ImathColor.h>
-
 #include "../base.h"
+#include "../../colour_ramp.h"
 
 namespace visualisations { namespace metrics {
 
@@ -21,7 +20,7 @@ class distance : public visualisation<distance> {
 	protected:
 	private:
 		std::string m_style;
-		std::map<float, Imath::C4f> m_ramp;
+		colour_ramp m_ramp;
 };
 
 } }
