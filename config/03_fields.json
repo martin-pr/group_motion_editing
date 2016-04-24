@@ -29,6 +29,12 @@
 					{"type": "leading_curve", "style": "fill:none;stroke:black;stroke-width:1"}
 				]
 			}
+		},
+
+		"metrics": {
+			"type": "shepards",
+			"setups": { "$ref": "#/scenarios/shepards/setups" },
+			"visualisations": { "$ref": "metrics.json#/" }
 		}
 	}
 }

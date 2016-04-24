@@ -41,6 +41,12 @@
 					{"type": "output_trajectory", "render": "circle", "r": 2, "style": "fill:blue;stroke:none"}
 				]
 			}
+		},
+
+		"metrics": {
+			"type": "projection_naive",
+			"setups": { "$ref": "#/scenarios/riot_projection/setups" },
+			"visualisations": { "$ref": "metrics.json#/" }
 		}
 	}
 }

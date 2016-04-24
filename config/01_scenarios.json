@@ -35,6 +35,15 @@
 					{"type": "heading_direction", "style": "fill:red;stroke:red"}
 				]
 			}
+		},
+
+		"metrics": {
+			"type": "empty",
+			"setups": {
+				"source_trajectory": {
+				}
+			},
+			"visualisations" : { "$ref" : "metrics.json#/" }
 		}
 	}
 }
