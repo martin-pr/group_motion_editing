@@ -3,12 +3,12 @@
 #include <iomanip>
 
 #include "scenarios/shepards.h"
-#include "../line_fit.h"
+#include "../../line_fit.h"
 
 using std::cout;
 using std::endl;
 
-namespace visualisations {
+namespace visualisations { namespace metrics {
 
 namespace {
 	std::string toRGB(const Imath::C4f& col) {
@@ -90,8 +90,8 @@ void distance::draw(std::ostream& svg, const agents& input, const agents& output
 }
 
 const std::string distance::type() {
-	return "distance";
+	return "metrics/distance";
 }
 
-}
+} }
 

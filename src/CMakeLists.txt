@@ -3,6 +3,7 @@ include_directories(./)
 file(GLOB sources
 	*.cpp
 	visualisations/*.cpp
+	visualisations/metrics/*.cpp
 	scenarios/*.cpp
 )
 

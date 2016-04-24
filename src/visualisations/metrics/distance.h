@@ -4,9 +4,9 @@
 
 #include <ImathColor.h>
 
-#include "base.h"
+#include "../base.h"
 
-namespace visualisations {
+namespace visualisations { namespace metrics {
 
 class distance : public visualisation<distance> {
 	public:
@@ -24,4 +24,4 @@ class distance : public visualisation<distance> {
 		std::map<float, Imath::C4f> m_ramp;
 };
 
-}
+} }
