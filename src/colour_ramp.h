@@ -14,6 +14,7 @@ class colour_ramp {
 		bool empty() const;
 
 		std::string stroke(const float& val) const;
+		std::string fill(const float& val) const;
 
 	protected:
 		Imath::C4f colour(const float& val) const;

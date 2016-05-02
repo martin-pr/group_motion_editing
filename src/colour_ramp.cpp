@@ -43,8 +43,12 @@ bool colour_ramp::empty() const {
 
 std::string colour_ramp::stroke(const float& val) const {
 	const Imath::C4f col = colour(val);
-
 	return "stroke=\"" + toRGB(col) + "\" stroke-opacity=\"" + boost::lexical_cast<std::string>(col.a) + "\"";
+}
+
+std::string colour_ramp::fill(const float& val) const {
+	const Imath::C4f col = colour(val);
+	return "fill=\"" + toRGB(col) + "\" fill-opacity=\"" + boost::lexical_cast<std::string>(col.a) + "\"";
 }
 
 Imath::C4f colour_ramp::colour(const float& val) const {
